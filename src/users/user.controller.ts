@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as jwt from 'jsonwebtoken';
 import { UserCreateDto } from './dto/UserCreate.dto';
@@ -23,6 +30,8 @@ export class UserController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   async findAll(): Promise<UserCreateDto[]> {
-    return this.userService.findAll().then((users) => users.map((user) => new UserCreateDto(user)));
+    return this.userService
+      .findAll()
+      .then((users) => users.map((user) => new UserCreateDto(user)));
   }
 }

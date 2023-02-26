@@ -15,7 +15,7 @@ describe('UserController', () => {
 
   beforeEach(async () => {
     const UserServiceMock = {
-      create: jest.fn().mockResolvedValue({ id: 1, ...mockUser }), 
+      create: jest.fn().mockResolvedValue({ id: 1, ...mockUser }),
       findAll: jest.fn().mockResolvedValue([{ id: 1, ...mockUser }]),
     };
 
@@ -33,7 +33,7 @@ describe('UserController', () => {
 
   it('should create a user', async () => {
     const user = await userController.create(mockUser);
-    expect(user).toStrictEqual({token: expect.any(String)});
+    expect(user).toStrictEqual({ token: expect.any(String) });
   });
 
   it('should return a list of users', async () => {

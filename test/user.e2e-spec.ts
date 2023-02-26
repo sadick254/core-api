@@ -18,7 +18,12 @@ describe('UserController (e2e)', () => {
   it('should create a user', () => {
     return request(app.getHttpServer())
       .post('/users')
-      .send({ email: 'test@mail.com', password: 'password', firstName: 'test', lastName: 'user' })
+      .send({
+        email: 'test@mail.com',
+        password: 'password',
+        firstName: 'test',
+        lastName: 'user',
+      })
       .expect(201)
       .then(({ body }) => {
         expect(body).toHaveProperty('token');
@@ -29,6 +34,8 @@ describe('UserController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/users')
       .expect(200)
-      .expect([{ id: 1, email: 'test@mail.com', firstName: 'test', lastName: 'user' }]);
+      .expect([
+        { id: 1, email: 'test@mail.com', firstName: 'test', lastName: 'user' },
+      ]);
   });
 });
