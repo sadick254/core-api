@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { UserCreateDto } from './dto/UserCreate.dto';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -30,16 +31,16 @@ describe('UserController', () => {
 
   it('should create a user', async () => {
     const user = await userController.create(mockUser);
-    expect(user).toStrictEqual({ id: 1, ...mockUser });
+    expect(user).toStrictEqual(new UserCreateDto({ id: 1, ...mockUser }));
   });
 
   it('should return a list of users', async () => {
     const users = await userController.findAll();
     expect(users).toStrictEqual([
-      {
+      new UserCreateDto({
         id: 1,
         ...mockUser,
-      },
+      }),
     ]);
   });
 });

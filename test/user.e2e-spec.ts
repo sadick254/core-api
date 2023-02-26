@@ -18,12 +18,15 @@ describe('UserController (e2e)', () => {
   it('should create a user', () => {
     return request(app.getHttpServer())
       .post('/users')
-      .send({ email: '', password: '', firstName: '', lastName: '' })
+      .send({ email: 'test@mail.com', password: 'password', firstName: 'test', lastName: 'user' })
       .expect(201)
-      .expect({});
+      .expect({ id: 1, email: 'test@mail.com', firstName: 'test', lastName: 'user'});
   });
 
   it('should fetch all users', () => {
-    return request(app.getHttpServer()).get('/users').expect(200).expect([]);
+    return request(app.getHttpServer())
+      .get('/users')
+      .expect(200)
+      .expect([{ id: 1, email: 'test@mail.com', firstName: 'test', lastName: 'user'}]);
   });
 });
