@@ -20,13 +20,15 @@ describe('UserController (e2e)', () => {
       .post('/users')
       .send({ email: 'test@mail.com', password: 'password', firstName: 'test', lastName: 'user' })
       .expect(201)
-      .expect({ id: 1, email: 'test@mail.com', firstName: 'test', lastName: 'user'});
+      .then(({ body }) => {
+        expect(body).toHaveProperty('token');
+      });
   });
 
   it('should fetch all users', () => {
     return request(app.getHttpServer())
       .get('/users')
       .expect(200)
-      .expect([{ id: 1, email: 'test@mail.com', firstName: 'test', lastName: 'user'}]);
+      .expect([{ id: 1, email: 'test@mail.com', firstName: 'test', lastName: 'user' }]);
   });
 });

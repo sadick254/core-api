@@ -1,3 +1,4 @@
+import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserCreateDto } from './dto/UserCreate.dto';
 import { UserController } from './user.controller';
@@ -19,6 +20,7 @@ describe('UserController', () => {
     };
 
     const app: TestingModule = await Test.createTestingModule({
+      imports: [ConfigModule],
       controllers: [UserController],
       providers: [UserService],
     })
@@ -31,7 +33,7 @@ describe('UserController', () => {
 
   it('should create a user', async () => {
     const user = await userController.create(mockUser);
-    expect(user).toStrictEqual(new UserCreateDto({ id: 1, ...mockUser }));
+    expect(user).toStrictEqual({token: expect.any(String)});
   });
 
   it('should return a list of users', async () => {
