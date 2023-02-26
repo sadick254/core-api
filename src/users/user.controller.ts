@@ -5,9 +5,11 @@ import {
   Post,
   UseInterceptors,
   ClassSerializerInterceptor,
+  UseGuards,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as jwt from 'jsonwebtoken';
+import { AuthGuard } from '../guards/auth.guard';
 import { UserCreateDto } from './dto/UserCreate.dto';
 import { UserService } from './user.service';
 
@@ -28,6 +30,7 @@ export class UserController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(AuthGuard)
   @Get()
   async findAll(): Promise<UserCreateDto[]> {
     return this.userService

@@ -5,6 +5,7 @@ import { AppModule } from './../src/app.module';
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
+  let token: string;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -26,13 +27,22 @@ describe('UserController (e2e)', () => {
       })
       .expect(201)
       .then(({ body }) => {
+        token = body.token;
         expect(body).toHaveProperty('token');
       });
   });
 
-  it('should fetch all users', () => {
+  it('should fail to get users when not authenticated', () => {
     return request(app.getHttpServer())
       .get('/users')
+      .expect(403)
+      .expect({ statusCode: 403, message: 'Forbidden resource', error: 'Forbidden' });
+  });
+
+  it('should fetch all users when authenticated', () => {
+    return request(app.getHttpServer())
+      .get('/users')
+      .set('Authorization', `Bearer ${token}`)
       .expect(200)
       .expect([
         { id: 1, email: 'test@mail.com', firstName: 'test', lastName: 'user' },
