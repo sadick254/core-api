@@ -1,8 +1,8 @@
-import { Controller, HttpCode, Post } from "@nestjs/common";
-import { IdentityRequest } from "./dto/identity-request.dto";
-import { IdentityService } from "./identity.service";
+import { Controller, HttpCode, Post } from '@nestjs/common';
+import { IdentityRequest } from './dto/identity-request.dto';
+import { IdentityService } from './identity.service';
 
-@Controller("identity")
+@Controller('identity')
 export class IdentityController {
   constructor(private readonly identityService: IdentityService) {}
   @HttpCode(200)

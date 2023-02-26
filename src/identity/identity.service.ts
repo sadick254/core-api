@@ -1,5 +1,5 @@
-import { Injectable } from "@nestjs/common";
-import { IdentityRequest } from "./interfaces/identity-request.interface";
+import { Injectable } from '@nestjs/common';
+import { IdentityRequest } from './interfaces/identity-request.interface';
 
 @Injectable()
 export class IdentityService {

@@ -15,7 +15,12 @@ describe('UserController', () => {
   });
 
   it('should create a customer', async () => {
-    const user = await customerController.create({ email: '', name: '', phone: '', address: '' });
+    const user = await customerController.create({
+      email: '',
+      name: '',
+      phone: '',
+      address: '',
+    });
     expect(user).toStrictEqual({});
   });
 
@@ -28,5 +33,4 @@ describe('UserController', () => {
     const user = await customerController.findOne('1');
     expect(user).toStrictEqual({});
   });
-
 });

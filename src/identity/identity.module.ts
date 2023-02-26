@@ -7,5 +7,4 @@ import { IdentityService } from './identity.service';
   controllers: [IdentityController],
   providers: [IdentityService],
 })
-
 export class IdentityModule {}

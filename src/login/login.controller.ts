@@ -1,8 +1,8 @@
-import { Controller, HttpCode, Post } from "@nestjs/common";
-import { UserLoginDto } from "./dto/user-login.dto";
-import { LoginService } from "./login.service";
+import { Controller, HttpCode, Post } from '@nestjs/common';
+import { UserLoginDto } from './dto/user-login.dto';
+import { LoginService } from './login.service';
 
-@Controller("login")
+@Controller('login')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 

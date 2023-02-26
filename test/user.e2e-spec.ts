@@ -24,9 +24,6 @@ describe('UserController (e2e)', () => {
   });
 
   it('should fetch all users', () => {
-    return request(app.getHttpServer())
-      .get('/users')
-      .expect(200)
-      .expect([]);
+    return request(app.getHttpServer()).get('/users').expect(200).expect([]);
   });
 });

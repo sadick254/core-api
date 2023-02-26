@@ -18,7 +18,7 @@ describe('IdentityController (e2e)', () => {
   it('confirms a bvn', () => {
     return request(app.getHttpServer())
       .post('/identity/process')
-      .send({ bvn: '12345678901'})
+      .send({ bvn: '12345678901' })
       .expect(200)
       .expect('process');
   });
@@ -26,7 +26,7 @@ describe('IdentityController (e2e)', () => {
   it('confirms a nuban', () => {
     return request(app.getHttpServer())
       .post('/identity/process')
-      .send({ nuban: '12345678901', bvn: '12345678901'})
+      .send({ nuban: '12345678901', bvn: '12345678901' })
       .expect(200)
       .expect('process');
   });
@@ -34,9 +34,8 @@ describe('IdentityController (e2e)', () => {
   it('gets a list of accounts for a bvn', () => {
     return request(app.getHttpServer())
       .post('/identity/accounts')
-      .send({ bvn: '12345678901'})
+      .send({ bvn: '12345678901' })
       .expect(200)
       .expect('accounts');
   });
-
 });

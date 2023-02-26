@@ -18,7 +18,7 @@ describe('LoginController (e2e)', () => {
   it('should login successfully', () => {
     return request(app.getHttpServer())
       .post('/login')
-      .send({ email: '', password: ''})
+      .send({ email: '', password: '' })
       .expect(200)
       .expect({});
   });

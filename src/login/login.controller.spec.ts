@@ -15,7 +15,7 @@ describe('LoginController', () => {
   });
 
   it('should create a user', async () => {
-    const user = await loginController.login({ email: '', password: ''});
+    const user = await loginController.login({ email: '', password: '' });
     expect(user).toStrictEqual({});
   });
 });

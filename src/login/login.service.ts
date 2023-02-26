@@ -1,5 +1,5 @@
-import { Injectable } from "@nestjs/common";
-import { UserLogin } from "./interfaces/user-login.interface";
+import { Injectable } from '@nestjs/common';
+import { UserLogin } from './interfaces/user-login.interface';
 
 @Injectable()
 export class LoginService {

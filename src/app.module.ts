@@ -5,8 +5,13 @@ import { LoginModule } from './login/login.module';
 import { UserModule } from './users/user.module';
 
 @Module({
-  imports: [UserModule, CustomerModule, LoginModule, IdentityModule],
+  imports: [
+    UserModule,
+    CustomerModule,
+    LoginModule,
+    IdentityModule
+  ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
