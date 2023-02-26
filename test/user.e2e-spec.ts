@@ -5,7 +5,6 @@ import { AppModule } from './../src/app.module';
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
-  let token: string;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -16,30 +15,42 @@ describe('UserController (e2e)', () => {
     await app.init();
   });
 
-  it('should create a user', () => {
+  afterEach(async () => {
+    await app.close();
+  });
+
+  const mockedUser = {
+    email: 'test@mail.com',
+    password: 'password',
+    firstName: 'test',
+    lastName: 'user',
+  }
+
+  const createUser = (user) => {
     return request(app.getHttpServer())
       .post('/users')
-      .send({
-        email: 'test@mail.com',
-        password: 'password',
-        firstName: 'test',
-        lastName: 'user',
-      })
-      .expect(201)
-      .then(({ body }) => {
-        token = body.token;
-        expect(body).toHaveProperty('token');
+      .send(user)
+      .then(({ body }) => body);
+  }
+
+
+  it('should create a user', () => {
+    return createUser(mockedUser)
+      .then((resp) => {
+        expect(resp).toStrictEqual({ token: expect.any(String) });
       });
   });
 
-  it('should fail to get users when not authenticated', () => {
+  it('should fail to get users when not authenticated', async () => {
     return request(app.getHttpServer())
       .get('/users')
       .expect(403)
       .expect({ statusCode: 403, message: 'Forbidden resource', error: 'Forbidden' });
   });
 
-  it('should fetch all users when authenticated', () => {
+  it('should fetch all users when authenticated', async () => {
+    const { token } = await createUser(mockedUser);
+
     return request(app.getHttpServer())
       .get('/users')
       .set('Authorization', `Bearer ${token}`)

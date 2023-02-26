@@ -14,6 +14,7 @@ import { UserModule } from './users/user.module';
       database: process.env.DB_NAME,
       synchronize: true,
       autoLoadEntities: true,
+      dropSchema: process.env.NODE_ENV === 'test',
     }),
     UserModule,
     CustomerModule,
