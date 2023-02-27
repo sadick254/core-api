@@ -1,4 +1,4 @@
-import { Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpException, Post } from '@nestjs/common';
 import { UserLoginDto } from './dto/user-login.dto';
 import { LoginService } from './login.service';
 
@@ -8,7 +8,9 @@ export class LoginController {
 
   @Post()
   @HttpCode(200)
-  async login(userLogin: UserLoginDto) {
-    return this.loginService.login(userLogin);
+  async login(@Body() userLogin: UserLoginDto) {
+    return this.loginService.login(userLogin).catch((err) => {
+      throw new HttpException(err.message, 401);
+    });
   }
 }
