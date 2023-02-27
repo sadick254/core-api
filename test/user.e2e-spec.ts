@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import { createUser, mockedUser } from './helpers';
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
@@ -19,23 +20,8 @@ describe('UserController (e2e)', () => {
     await app.close();
   });
 
-  const mockedUser = {
-    email: 'test@mail.com',
-    password: 'password',
-    firstName: 'test',
-    lastName: 'user',
-  }
-
-  const createUser = (user) => {
-    return request(app.getHttpServer())
-      .post('/users')
-      .send(user)
-      .then(({ body }) => body);
-  }
-
-
   it('should create a user', () => {
-    return createUser(mockedUser)
+    return createUser(mockedUser, app)
       .then((resp) => {
         expect(resp).toStrictEqual({ token: expect.any(String) });
       });
@@ -49,7 +35,7 @@ describe('UserController (e2e)', () => {
   });
 
   it('should fetch all users when authenticated', async () => {
-    const { token } = await createUser(mockedUser);
+    const { token } = await createUser(mockedUser, app);
 
     return request(app.getHttpServer())
       .get('/users')
