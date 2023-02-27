@@ -8,6 +8,7 @@ describe('UserController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
+    process.env.DB_NAME = 'users.db';
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
