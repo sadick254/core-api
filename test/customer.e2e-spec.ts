@@ -7,6 +7,7 @@ describe('CustomerController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
+    process.env.DB_NAME = 'customers.db';
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -15,19 +16,39 @@ describe('CustomerController (e2e)', () => {
     await app.init();
   });
 
+  afterEach(async () => {
+    await app.close();
+  });
+
+  const customer = {
+    email: 'customer@mail.com',
+    name: 'John Doe',
+    phone: '123456789',
+    country: 'Kenya',
+  };
+
+  const createCustomer = (customer, app) => {
+    return request(app.getHttpServer())
+      .post('/customers')
+      .send(customer)
+      .then(({ body }) => body);
+  };
+
   it('should create a customer', () => {
     return request(app.getHttpServer())
       .post('/customers')
-      .send({ email: '', name: '', phone: '', address: '' })
+      .send(customer)
       .expect(201)
-      .expect({});
+      .expect({ id: 1, ...customer });
   });
 
-  it('should fetch all customers', () => {
+  it('should fetch all customers', async () => {
+    await createCustomer(customer, app)
+
     return request(app.getHttpServer())
       .get('/customers')
       .expect(200)
-      .expect([]);
+      .expect([{ id: 1, ...customer }]);
   });
 
   it('should fetch a customer by id', () => {
