@@ -5,6 +5,7 @@ import { CustomerModule } from './customers/customer.module';
 import { IdentityModule } from './identity/identity.module';
 import { LoginModule } from './login/login.module';
 import { UserModule } from './users/user.module';
+import { AuthService } from './auth/auth.service';
 
 @Module({
   imports: [
@@ -22,6 +23,6 @@ import { UserModule } from './users/user.module';
     IdentityModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [AuthService],
 })
 export class AppModule {}

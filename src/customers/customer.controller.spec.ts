@@ -39,7 +39,7 @@ describe('UserController', () => {
   it('should create a customer', async () => {
     repositoryMock.save = jest.fn().mockResolvedValue(mockedCustomer);
 
-    const customer = await customerController.create(mockedCustomer);
+    const customer = await customerController.create(mockedCustomer, 'token');
 
     expect(customer).toStrictEqual(mockedCustomer);
   });
