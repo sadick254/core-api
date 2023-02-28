@@ -1,19 +1,24 @@
-import { Controller, HttpCode, Post } from '@nestjs/common';
-import { IdentityRequest } from './dto/identity-request.dto';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { IdentityDto } from './identity.dto';
 import { IdentityService } from './identity.service';
 
+@UseGuards(AuthGuard)
 @Controller('identity')
 export class IdentityController {
   constructor(private readonly identityService: IdentityService) {}
-  @HttpCode(200)
   @Post('process')
-  async process(identityRequest: IdentityRequest) {
-    return this.identityService.process(identityRequest);
+  process(@Body() identityDto: IdentityDto) {
+    return this.identityService.process(identityDto);
   }
 
-  @HttpCode(200)
   @Post('accounts')
-  async accounts(identityRequest: IdentityRequest) {
-    return this.identityService.accounts(identityRequest);
+  accounts(@Body() identityDto: IdentityDto) {
+    return this.identityService.accounts(identityDto);
+  }
+
+  @Post('confirm')
+  confirm(@Body() identityDto: IdentityDto) {
+    return this.identityService.confirm(identityDto);
   }
 }
